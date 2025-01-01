@@ -1,0 +1,38 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Environment variables
+.env
+
+# Logs
+logs/
+*.log
+*.tlog
+log.txt
+
+# Database
+*.sqlite
+*.sqlite3
+*.db
+
+# OS generated files
+.DS_Store
+Thumbs.db
+*.swp
+
+# IDE and Editor specific
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Build artifacts
+dist/
+build/
+
+# Temporary files
+temp/
+tmp/

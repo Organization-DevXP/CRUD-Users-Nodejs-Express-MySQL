@@ -19,7 +19,7 @@ router.post('/logout', (req, res) => {
 
 router.get('/', authenticateToken, verifyAdmin, getAllUsers);
 router.get('/:id', authenticateToken, getUserById);
-router.put('/update/:id', authenticateToken, updateUser);
+router.put('/update/:id', validateRegisterUser, handleValidationErrors, authenticateToken, updateUser);
 router.delete('/delete/:id', authenticateToken, deleteUser);
 router.put('/restore/:id', authenticateToken, verifyAdmin, restoreUser);
 

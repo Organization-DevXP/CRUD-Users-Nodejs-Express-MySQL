@@ -1,45 +1,40 @@
 // ./src/controllers/userController.js
 
 import { createUser, loginUser, deleteUserService, getAllUsersService, getUserByIdService, updateUserService, restoreUserService } from '../services/userService.js';
-import { registerUserSchema, loginUserSchema, updateUserSchema } from '../utils/validate.js';
 import { generateAuthToken } from '../utils/jwt.js';
 
 export const registerUser = async (req, res) => {
     try {
-        const parsedData = registerUserSchema.parse(req.body);
-        const { username, email, password } = parsedData;
+        const { username, email, password } = req.body;
 
         const newUser = await createUser(username, email, password);
 
         res.status(201).json({ message: 'User created successfully', user: newUser });
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            const formattedErrors = error.errors.map(err => ({
-                field: err.path[0],
-                message: err.message,
-            }));
-            res.status(400).json({ errors: formattedErrors });
-        } else {
-            res.status(500).json({ message: 'Internal server error' });
+        if (error.name === 'ValidationError') {
+            return res.status(422).json({
+                message: 'Validation error',
+                errors: error.errors
+            });
         }
+        // Manejo de errores desconocidos
+        console.error('Error in registerUser:', error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
     }
 };
 
 export const loginUserController = async (req, res) => {
     try {
-        const parsedData = loginUserSchema.parse(req.body);
-
-        const { email, password } = parsedData;
-
+        const { email, password } = req.body;
         // Autenticación del usuario
         const user = await loginUser(email, password);
         if (!user) {
             return res.status(401).json({ message: 'Invalid credentials' });
         }
-
         // Generación del token JWT
         const token = await generateAuthToken(user.id, user.role);
-
         // Respuesta exitosa con token
         res.status(200).json({
             message: 'Login successful',
@@ -47,15 +42,17 @@ export const loginUserController = async (req, res) => {
             user: { id: user.id, username: user.username, email: user.email, rol: user.role, coins: user.coins }
         });
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            const formattedErrors = error.errors.map(err => ({
-                field: err.path[0],
-                message: err.message,
-            }));
-            res.status(400).json({ errors: formattedErrors });
-        } else {
-            res.status(500).json({ message: 'Internal server error' });
+        if (error.name === 'ValidationError') {
+            return res.status(422).json({
+                message: 'Validation error',
+                errors: error.errors
+            });
         }
+        // Manejo de errores desconocidos
+        console.error('Error in registerUser:', error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
     }
 };
 
@@ -91,32 +88,27 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         const { id } = req.params;
-        // Validar los datos de entrada con Zod
-        const validatedData = updateUserSchema.parse(req.body);
+        const { username, email, password } = req.body
 
         // Realizar la actualización
-        const updated = await updateUserService(id, validatedData.username, validatedData.email, validatedData.password);
+        const updated = await updateUserService(id, username, email, password);
 
         if (!updated) {
             return res.status(404).json({ message: 'Usuario no encontrado para actualizar' });
         }
         res.status(200).json({ message: 'Usuario actualizado correctamente' });
     } catch (error) {
-        if (error instanceof z.ZodError) {
-            const formattedErrors = error.errors.map(err =>
-            ({
-                field: err.path[0],
-                message: err.message,
-            }));
-            res.status(400).json({
-                errors:
-                    formattedErrors
-            });
-        } else {
-            res.status(500).json({
-                message: 'Internal server error'
+        if (error.name === 'ValidationError') {
+            return res.status(422).json({
+                message: 'Validation error',
+                errors: error.errors
             });
         }
+        // Manejo de errores desconocidos
+        console.error('Error in registerUser:', error);
+        res.status(500).json({
+            message: 'Internal server error'
+        });
     }
 };
 

@@ -95,7 +95,7 @@ http://localhost:3000/api-docs
 ## Scripts
 
 - `npm start`: Inicia la aplicación en modo producción.
-- `npm run dev`: Inicia la aplicación en modo desarrollo con nodemon.
+- `npm run dev`: Inicia la aplicación en modo desarrollo.
 
 ## Estructura del proyecto
 

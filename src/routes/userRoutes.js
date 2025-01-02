@@ -23,9 +23,4 @@ router.put('/update/:id', validateRegisterUser, handleValidationErrors, authenti
 router.delete('/delete/:id', authenticateToken, deleteUser);
 router.put('/restore/:id', authenticateToken, verifyAdmin, restoreUser);
 
-// Ruta protegida por token JWT
-router.get('/profile', authenticateToken, (req, res) => {
-    res.status(200).json({ message: 'This is a protected route', userId: req.userId });
-});
-
 export default router;

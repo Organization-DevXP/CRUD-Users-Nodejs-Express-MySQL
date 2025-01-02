@@ -19,6 +19,7 @@ Este proyecto es una plantilla inicial para desarrollar APIs en Node.js. Incluye
 - [bcrypt.js](https://github.com/dcodeIO/bcrypt.js/)
 - [Swagger](https://swagger.io/)
 - [Morgan](https://github.com/expressjs/morgan)
+- [MySQL](https://www.mysql.com/)
 
 ## Instalación
 

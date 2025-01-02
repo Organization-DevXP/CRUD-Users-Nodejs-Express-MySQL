@@ -18,25 +18,36 @@ const User = {
             description: "Correo electrónico único del usuario",
             example: "john.doe@example.com"
         },
-        coins: {
-            type: "integer",
-            description: "Cantidad de monedas disponibles para el usuario en la plataforma",
-            example: 100
-        },
-        role: {
+        password: {
             type: "string",
-            description: "Rol del usuario dentro del sistema (usuario común o administrador)",
-            enum: ["user", "admin"],
-            example: "user"
+            description: "Contraseña del usuario",
+            example: "P@ssw0rd123"
         },
         created_at: {
             type: "string",
             format: "date-time",
             description: "Fecha y hora en que el usuario fue creado en el sistema",
             example: "2024-12-31T12:34:56Z"
+        },
+        updated_at: {
+            type: "string",
+            format: "date-time",
+            description: "Fecha y hora de la última actualización del usuario",
+            example: "2024-12-31T12:34:56Z"
+        },
+        is_deleted: {
+            type: "boolean",
+            description: "Estado de eliminación del usuario (si está marcado como eliminado)",
+            example: false
+        },
+        role: {
+            type: "string",
+            description: "Rol del usuario dentro del sistema (usuario común o administrador)",
+            enum: ["user", "admin"],
+            example: "user"
         }
     },
-    required: ["id", "username", "email", "coins", "role", "created_at"]
+    required: ["id", "username", "email", "role", "created_at"]
 };
 
 export default User;

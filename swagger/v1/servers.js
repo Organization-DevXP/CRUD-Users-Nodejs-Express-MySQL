@@ -17,20 +17,6 @@ const servers = [
                 default: versionsApi[0]
             },
         },
-    },
-    {
-        url: "https://your-production-url.com/{basePath}/{versionApi}",
-        description: "Production server",
-        variables: {
-            basePath: {
-                enum: [basePath],
-                default: basePath
-            },
-            versionApi: {
-                enum: versionsApi,
-                default: versionsApi[0]
-            },
-        },
     }
 ];
 

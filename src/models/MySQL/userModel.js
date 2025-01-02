@@ -1,6 +1,6 @@
 // ./src/models/userModel.js
 
-import { pool } from '../config/db.js';
+import { pool } from '../../config/db.js';
 
 export const createUserModel = async (username, email, password) => {
     const connection = await pool.getConnection();

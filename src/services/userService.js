@@ -1,6 +1,6 @@
 // ./src/services/userService.js
 
-import { createUserModel, getUserByEmail, deleteUserModel, getAllUsersModel, getUserByIdModel, updateUserModel, restoreUserModel } from '../models/userModel.js';
+import { createUserModel, getUserByEmail, deleteUserModel, getAllUsersModel, getUserByIdModel, updateUserModel, restoreUserModel } from '../models/MySQL/userModel.js';
 import { hashPassword, comparePassword } from '../utils/bcrypt.js';
 import { generateAuthToken } from '../utils/jwt.js'; 
 

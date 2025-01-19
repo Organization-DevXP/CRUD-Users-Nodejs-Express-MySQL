@@ -4,7 +4,7 @@ const registerUser = {
     post: {
         summary: "Registrar un nuevo usuario",
         description: "Crea un nuevo usuario en la plataforma con su nombre de usuario, correo electrónico y contraseña.",
-        tags: ["Usuario"],
+        tags: ["Autenticador"],
         requestBody: {
             required: true,
             content: {

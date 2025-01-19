@@ -4,7 +4,7 @@ const loginUser = {
     post: {
         summary: "Iniciar sesión",
         description: "Permite a un usuario autenticarse en la plataforma y recibir un token JWT para futuras solicitudes.",
-        tags: ["Usuario"],
+        tags: ["Autenticador"],
         requestBody: {
             required: true,
             content: {

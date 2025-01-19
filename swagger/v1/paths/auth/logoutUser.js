@@ -5,6 +5,11 @@ const logout = {
         summary: "Cerrar sesión",
         description: "Cierra la sesión del usuario autenticado e invalida el token de autenticación.",
         tags: ["Autenticador"],
+        security: [
+            {
+                BearerAuth: []
+            }
+        ],
         responses: {
             200: {
                 description: "Sesión cerrada exitosamente.",

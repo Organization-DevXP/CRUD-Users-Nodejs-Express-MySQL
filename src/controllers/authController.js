@@ -1,4 +1,4 @@
-import { createUser, loginUser } from '../services/authService.js'
+import { createUserService, loginUserService, logoutUserService } from '../services/authService.js'
 
 import { generateAuthToken } from '../utils/jwt.js';
 
@@ -6,7 +6,7 @@ export const registerUser = async (req, res) => {
     try {
         const { username, email, password } = req.body;
 
-        const newUser = await createUser(username,
+        const newUser = await createUserService(username,
             email, password);
 
         res.status(201).json({
@@ -31,7 +31,7 @@ export const loginUserController = async (req, res) => {
     try {
         const { email, password } = req.body;
         // Autenticación del usuario
-        const user = await loginUser(email, password);
+        const user = await loginUserService(email, password);
         if (!user) {
             return res.status(401).json({
                 message:
@@ -63,5 +63,16 @@ export const loginUserController = async (req, res) => {
         res.status(500).json({
             message: 'Internal server error'
         });
+    }
+};
+
+export const logoutUserController = async (req, res) => {
+    try {
+        const userId = req.userId;
+        logoutUserService(userId);
+        return res.status(200).json({ message: 'Sesión cerrada exitosamente.' });
+    } catch (error) {
+        console.error('Error in logoutUserController:', error.message);
+        return res.status(500).json({ message: 'Error al cerrar sesión.', error: error.message });
     }
 };

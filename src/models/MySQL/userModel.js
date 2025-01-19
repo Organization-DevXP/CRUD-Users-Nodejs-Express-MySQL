@@ -30,6 +30,17 @@ export const getUserByEmail = async (email) => {
     return rows[0];
 };
 
+export const logoutUserModel = async (userId, state) => {
+    try {
+        const query = 'UPDATE users SET is_active = ? WHERE id = ?';
+        const [result] = await pool.execute(query, [state, userId]);
+        return result.affectedRows > 0; // Retorna true si se actualizó algo
+    } catch (error) {
+        console.error('Error al actualizar el estado del usuario:', error.message);
+        throw error; // Lanza el error para que lo maneje el servicio o controlador
+    }
+};
+
 // Obtener todos los usuarios
 export const getAllUsersModel = async () => {
     const [rows] = await pool.execute('SELECT id, username, email FROM users WHERE is_deleted = ?', [false]);

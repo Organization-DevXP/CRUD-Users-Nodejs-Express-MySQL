@@ -1,6 +1,6 @@
 // ./src/models/userModel.js
 
-import { pool } from '../../config/db.js';
+import { pool } from '../../config/connectMySQL.js';
 
 // Crear Usuario
 export const createUserModel = async (username, email, password) => {

@@ -21,8 +21,16 @@ const connectDB = async () => {
         const [rows] = await pool.query('SELECT 1');  // Consulta simple para probar la conexión
         console.log('✅ Conexión a la base de datos exitosa');
     } catch (error) {
-        console.error('❌ Error al conectar con la base de datos', error);
-        throw error;  // Lanzamos el error para que no se ejecute el servidor si hay un fallo
+        // Categorizar y manejar errores específicos
+        if (error.code === 'ER_ACCESS_DENIED_ERROR') {
+            console.error('❌ Error: Credenciales inválidas para la base de datos');
+        } else if (error.code === 'ENOTFOUND') {
+            console.error('❌ Error: No se pudo encontrar el host de la base de datos');
+        } else if (error.code === 'ECONNREFUSED') {
+            console.error('❌ Error: Conexión rechazada, revisa si el servidor está activo');
+        } else {
+            console.error('❌ Error desconocido al conectar con la base de datos:', error.message);
+        } 
     }
 };
 

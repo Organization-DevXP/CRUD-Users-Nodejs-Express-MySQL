@@ -43,7 +43,7 @@ export const logoutUserService = async (userId) => {
             throw new Error('No se pudo cerrar sesión; el usuario no existe o ya estaba inactivo.');
         }
     } catch (error) {
-        console.error('Error in logoutUserService:', error.message);
+        console.error('Error in logoutUserService');
         throw error;
     }
 };

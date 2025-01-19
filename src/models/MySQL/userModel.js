@@ -2,6 +2,7 @@
 
 import { pool } from '../../config/db.js';
 
+// Crear Ususario
 export const createUserModel = async (username, email, password) => {
     const connection = await pool.getConnection();
     try {
@@ -24,12 +25,14 @@ export const createUserModel = async (username, email, password) => {
     }
 };
 
+// Obtener email de Usuario
 export const getUserByEmail = async (email) => {
     const query = 'SELECT * FROM users WHERE email = ? AND is_deleted = ?';
     const [rows] = await pool.execute(query, [email, false]);
     return rows[0];
 };
 
+// Cierre de sesion de Usuario
 export const logoutUserModel = async (userId, state) => {
     try {
         const query = 'UPDATE users SET is_active = ? WHERE id = ?';
@@ -39,6 +42,13 @@ export const logoutUserModel = async (userId, state) => {
         console.error('Error al actualizar el estado del usuario:', error.message);
         throw error; // Lanza el error para que lo maneje el servicio o controlador
     }
+};
+
+// Verificar si el usuario está activo
+export const checkUserActive = async (userId) => {
+    const query = 'SELECT is_active FROM users WHERE id = ?';
+    const [rows] = await pool.execute(query, [userId]);
+    return rows.length > 0 && rows[0].is_active;
 };
 
 // Obtener todos los usuarios

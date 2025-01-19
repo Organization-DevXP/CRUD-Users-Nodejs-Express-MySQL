@@ -17,9 +17,15 @@ export const getAllUsers = async (req, res) => {
 export const getUserById = async (req, res) => {
     try {
         const { id } = req.params;
-        // Verificar si el id en la URL coincide con el userId del token       
+        if (req.role = 'admin') {
+            const user = await getUserByIdService(id);
+            if (!user) {
+                return res.status(404).json({ message: 'Usuario no encontrado' });
+            }
+            return res.status(200).json(user);
+        }
         if (id !== req.userId.toString()) {
-            return res.status(403).json({ message: 'No tienes permiso para eliminar este usuario.' });
+            return res.status(403).json({ message: 'No tienes permiso para ver este usuario.' });
         }
         const user = await getUserByIdService(id);
         if (!user) {
@@ -37,9 +43,22 @@ export const updateUser = async (req, res) => {
         const { id } = req.params;
         const { username, email, password } = req.body
 
+        if (req.role = 'admin') {
+            const updated = await updateUserService(id, username, email, password);
+            if (!updated) {
+                return res.status(404).json({
+                    message: 'Usuario no encontrado para actualizar'
+                });
+            }
+            res.status(200).json({ message: 'Usuario actualizado correctamente' });
+        };
+        if (id !== req.userId.toString()) {
+            return res.status(403).json({
+                message: 'No  tienes permiso para actualizar este usuario.'
+            });
+        }
         // Realizar la actualización
         const updated = await updateUserService(id, username, email, password);
-
         if (!updated) {
             return res.status(404).json({ message: 'Usuario no encontrado para actualizar' });
         }
@@ -64,6 +83,19 @@ export const deleteUser = async (req, res) => {
     try {
         const { id } = req.params;
         // Verificar si el id en la URL coincide con el userId del token
+        if (req.role = 'admin') {
+            const deleted = await deleteUserService(id);
+            if (!deleted) {
+                return res.status(404).json({
+                    message:
+                        'Usuario no encontrado para eliminar'
+                });
+            }
+            res.status(200).json({
+                message: 'Usuario eliminado correctamente'
+            });
+        }
+
         if (id !== req.userId.toString()) {
             return res.status(403).json({ message: 'No tienes permiso para eliminar este usuario.' });
         }

@@ -2,7 +2,7 @@
 
 import { pool } from '../../config/db.js';
 
-// Crear Ususario
+// Crear Usuario
 export const createUserModel = async (username, email, password) => {
     const connection = await pool.getConnection();
     try {
@@ -30,25 +30,21 @@ export const getUserByEmail = async (email) => {
     try {
         const query = 'SELECT * FROM users WHERE email = ? AND is_deleted = ?';
         const [rows] = await pool.execute(query, [email, false]);
-        return rows[0];
+        return rows.length > 0 ? rows[0] : null;
     } catch (error) {
-        await connection.rollback();
-        console.error('Error al obtener el mail del usuario: ',
-            error.message);
+        console.error('Error al obtener el mail del usuario: ', error.message);
         throw error;
-    } finally {
-        connection.release();
     }
 };
 
 // Cierre de sesion de Usuario
 export const logoutUserModel = async (userId, state) => {
+    const connection = await pool.getConnection();
     try {
         const query = 'UPDATE users SET is_active = ? WHERE id = ?';
-        const [result] = await pool.execute(query, [state, userId]);
+        const [result] = await connection.execute(query, [state, userId]);
         return result.affectedRows > 0; // Retorna true si se actualizó algo
     } catch (error) {
-        await connection.rollback();
         console.error('Error al actualizar el estado del usuario:', error.message);
         throw error;
     } finally {
@@ -63,12 +59,9 @@ export const checkUserActive = async (userId) => {
         const [rows] = await pool.execute(query, [userId]);
         return rows.length > 0 && rows[0].is_active;
     } catch (error) {
-        await connection.rollback();
         console.error('Error al verificar que el usuario esta activo:',
             error.message);
         throw error;
-    } finally {
-        connection.release();
     }
 };
 
@@ -78,12 +71,8 @@ export const getAllUsersModel = async () => {
         const [rows] = await pool.execute('SELECT id, username, email FROM users WHERE is_deleted = ?', [false]);
         return rows;
     } catch (error) {
-        await connection.rollback();
-        console.error('Error al obtener los usuarios:',
-            error.message);
+        console.error('Error al obtener los usuarios:', error.message);
         throw error;
-    } finally {
-        connection.release();
     }
 };
 
@@ -93,12 +82,8 @@ export const getUserByIdModel = async (id) => {
         const [rows] = await pool.execute('SELECT id, username, email FROM users WHERE id = ? AND is_deleted = ?', [id, false]);
         return rows[0];
     } catch (error) {
-        await connection.rollback();
-        console.error('Error al obtener el usuario:',
-            error.message);
+        console.error('Error al obtener el usuario:', error.message);
         throw error;
-    } finally {
-        connection.release();
     }
 };
 

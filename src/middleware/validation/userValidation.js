@@ -1,6 +1,6 @@
 import { usernameValidation, emailValidation, passwordValidation } from './fieldsValidation.js';
 
-import { emailValidation, passwordValidation, usernameValidation } from './validateUpdateUser.js';
+import { emailValidationUpdate, passwordValidationUpdate, usernameValidationUpdate } from './validateUpdateUser.js';
 
 
 // Validaciones para registrar un usuario
@@ -18,7 +18,7 @@ export const validateLoginUser = [
 
 // Validaciones para actualizar un usuario
 export const validateUpdateUser = [
-    usernameValidation,
-    emailValidation,
-    passwordValidation,
+    usernameValidationUpdate,
+    emailValidationUpdate,
+    passwordValidationUpdate,
 ];

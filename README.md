@@ -10,6 +10,7 @@ Este proyecto es una plantilla inicial para desarrollar APIs en Node.js. Incluye
 - **Gestión de errores:** Manejo centralizado de errores para garantizar respuestas consistentes.
 - **Registro de solicitudes:** Uso de Morgan para registrar solicitudes HTTP.
 - **Estructura modular:** Organización clara de rutas, controladores, y utilidades.
+- **Gestión de usuarios:** Inclusión de rutas para registro, inicio de sesión, cierre de sesión, y administración de usuarios (crear, actualizar, eliminar, restaurar).
 
 ## Tecnologías utilizadas
 
@@ -52,6 +53,7 @@ Este proyecto es una plantilla inicial para desarrollar APIs en Node.js. Incluye
    DB_USER=root
    DB_PASSWORD=yourpassword
    DB_NAME=namedatabase
+   JWT_SECRET=your_jwt_secret_key
    ```
 
 4. Inicia la aplicación:
@@ -103,14 +105,18 @@ http://localhost:3000/api-docs
 ├── src/
 │   ├── config/
 │   │   ├── tableUser.sql
-│   │   └── db.js
+│   │   └── connectMySQL.js
 │   ├── controllers/
+│   │   ├── authController.js
 │   │   └── userController.js
 │   ├── models/
-│   │   └── userModel.js
+│   │   └── MySQL/
+|   │       └── userModel.js
 │   ├── routes/
+│   │   ├── authRoutes.js
 │   │   └── userRoutes.js
 │   ├── services/
+│   │   ├── authService.js
 │   │   └── userService.js
 │   ├── utils/
 │   │   ├── bcrypt.js
@@ -119,34 +125,24 @@ http://localhost:3000/api-docs
 │   ├── middleware/
 │   │   ├── validataion
 │   │   │   ├── fieldsValidation.js
+│   │   │   ├── validateUpdateUser.js
 │   │   │   └── userValidation.js
 │   │   ├── handleValidationErrors.js
+│   │   ├── checkUserActiveMiddleware.js
 │   │   ├── verifyAdmin.js
 │   │   └── authMiddleware.js
 │   │
 │   ├── app.js    # Configuración de la app
 │   └── server.js # Arranque del servidor
-├── .env.example  # Variables de entorno
+├── swagger/      # Configuracion de Swagger
+├── .env.example  # Ejemplo de Variables de entorno
 ├── package.json  # Dependencias y scripts
 └──
 ```
 
 ## Contribución
 
-1. Haz un fork del repositorio.
-2. Crea una nueva rama para tus cambios:
-   ```bash
-   git checkout -b feature/nueva_funcionalidad
-   ```
-3. Haz commit de tus cambios:
-   ```bash
-   git commit -m "Añadir nueva funcionalidad"
-   ```
-4. Haz push de tus cambios a tu fork:
-   ```bash
-   git push origin feature/nueva_funcionalidad
-   ```
-5. Abre un Pull Request.
+Por favor, consulta el archivo [CONTRIBUTING.md](./CONTRIBUTING.md) para obtener las pautas detalladas sobre cómo contribuir a este proyecto.
 
 ## Licencia
 

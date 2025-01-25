@@ -148,6 +148,17 @@ Por favor, consulta el archivo [CONTRIBUTING.md](./CONTRIBUTING.md) para obtener
 
 Este proyecto está bajo la Licencia MIT. Consulta el archivo `LICENSE` para más detalles.
 
+## Redes Sociales de OrganizationDevXp
+
+Puedes seguirnos o unirte a nuestras comunidades en las siguientes plataformas:
+
+ [![Linkedin](https://img.shields.io/badge/LinkedIn-0A66C2?style=social&logo=linkedin)](https://www.linkedin.com/company/organization-devxp)
+ [![YouTube](https://img.shields.io/badge/YouTube-FF0000?style=social&logo=youtube)](https://www.youtube.com/@Organization-DevXP)
+ [![WhatsApp](https://img.shields.io/badge/WhatsApp-25D366?style=social&logo=whatsapp)](https://chat.whatsapp.com/FfX0fXV4xHzCvFoVFn7ssa)
+ [![Discord](https://img.shields.io/badge/Discord-7289DA?style=social&logo=discord)](https://discord.com/invite/j3hnJjR8Yd)
+ [![GitHub](https://img.shields.io/badge/GitHub-181717?style=social&logo=github)](https://github.com/Organization-DevXP)
+
+
 ---
 
 ¡Gracias por contribuir! Si tienes alguna duda o sugerencia, no dudes en abrir un issue o contactarnos.
